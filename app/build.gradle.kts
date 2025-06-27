@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ru.evgenykuzakov.shift_android_testtask"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ru.evgenykuzakov.shift_android_testtask"
