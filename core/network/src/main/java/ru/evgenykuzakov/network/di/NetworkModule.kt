@@ -13,7 +13,7 @@ private const val BASE_URL = "https://randomuser.me/api"
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class NetworkModule {
+internal object NetworkModule {
 
     @Provides
     @Singleton
