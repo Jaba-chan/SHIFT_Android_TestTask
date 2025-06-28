@@ -1,11 +1,11 @@
 package ru.evgenykuzakov.domain.repository
 
-import ru.evgenykuzakov.domain.model.UserDetail
+import ru.evgenykuzakov.domain.model.User
 import ru.evgenykuzakov.domain.model.UserMainInfo
 
-interface UsersDataRepository {
+interface LocalUsersRepository {
 
     fun getUsers(): List<UserMainInfo>
-    fun getUserDetailInfo(): UserDetail
+    fun getUserDetailInfo(): User
 
 }
