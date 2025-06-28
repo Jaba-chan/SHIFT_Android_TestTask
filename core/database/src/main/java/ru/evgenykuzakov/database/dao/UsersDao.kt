@@ -1,6 +1,8 @@
 package ru.evgenykuzakov.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import ru.evgenykuzakov.database.model.UserEntity
 
@@ -10,4 +12,12 @@ interface UsersDao {
     @Query("SELECT * from users")
     fun getAllUsers(): List<UserEntity>
 
+    @Query("SELECT * FROM users WHERE id = :id")
+    fun getUser(id: Int): UserEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(users: List<UserEntity>)
+
+    @Query("DELETE FROM users")
+    fun clearAll()
 }
