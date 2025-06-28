@@ -7,7 +7,7 @@ interface DefaultUserRepository {
 
     fun getUsers(): List<UserMainInfo>
 
-    fun getUserDetailInfo(): User
+    fun getUserDetailInfo(user: UserMainInfo): User
 
     fun refreshUsers(): Unit
 

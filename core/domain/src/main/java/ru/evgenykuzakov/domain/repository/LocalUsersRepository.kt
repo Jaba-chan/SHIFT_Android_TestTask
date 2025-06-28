@@ -7,7 +7,7 @@ interface LocalUsersRepository {
 
     fun getUsers(): List<UserMainInfo>
 
-    fun getUserDetailInfo(): User
+    fun getUserDetailInfo(user: UserMainInfo): User
 
     fun clearAll(): Unit
 
