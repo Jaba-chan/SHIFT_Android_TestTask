@@ -5,10 +5,10 @@ import ru.evgenykuzakov.domain.model.UserMainInfo
 
 interface DefaultUserRepository {
 
-    fun getUsers(): List<UserMainInfo>
+    suspend fun getUsers(): List<UserMainInfo>
 
-    fun getUserDetailInfo(user: UserMainInfo): User
+    suspend fun getUserDetailInfo(user: UserMainInfo): User
 
-    fun refreshUsers(): Unit
+    suspend fun refreshUsers(): Unit
 
 }
