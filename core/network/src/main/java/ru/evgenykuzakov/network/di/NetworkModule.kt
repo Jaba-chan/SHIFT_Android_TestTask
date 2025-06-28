@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.evgenykuzakov.network.RandomUserApi
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://randomuser.me/api"
+private const val BASE_URL = "https://randomuser.me/"
 
 @Module
 @InstallIn(SingletonComponent::class)

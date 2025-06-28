@@ -1,5 +1,6 @@
 package ru.evgenykuzakov.data.repository
 
+import jakarta.inject.Inject
 import ru.evgenykuzakov.data.util.toDomain
 import ru.evgenykuzakov.data.util.toEntity
 import ru.evgenykuzakov.data.util.toUserMainInfo
@@ -8,7 +9,7 @@ import ru.evgenykuzakov.domain.model.User
 import ru.evgenykuzakov.domain.model.UserMainInfo
 import ru.evgenykuzakov.domain.repository.LocalUsersRepository
 
-class LocalUsersRepositoryImpl(
+class LocalUsersRepositoryImpl @Inject constructor(
     private val dao: UsersDao
 ) : LocalUsersRepository {
 
