@@ -68,7 +68,7 @@ data class Registered(
 
 data class Id(
     val name: String,
-    val value: String
+    val value: String?
 )
 
 data class Picture(
