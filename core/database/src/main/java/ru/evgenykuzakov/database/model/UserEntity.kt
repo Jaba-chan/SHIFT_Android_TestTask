@@ -2,6 +2,7 @@ package ru.evgenykuzakov.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
 @Entity(tableName = "users")
 data class UserEntity (
@@ -18,13 +19,13 @@ data class UserEntity (
     val picture: PictureEntity,
     val nat: String
 )
-
+@Serializable
 data class NameEntity(
     val title: String,
     val first: String,
     val last: String
 )
-
+@Serializable
 data class LocationEntity(
     val street: StreetEntity,
     val city: String,
@@ -34,22 +35,22 @@ data class LocationEntity(
     val coordinates: CoordinatesEntity,
     val timezone: TimezoneEntity
 )
-
+@Serializable
 data class StreetEntity(
     val number: Int,
     val name: String
 )
-
+@Serializable
 data class CoordinatesEntity(
     val latitude: Float,
     val longitude: Float,
 )
-
+@Serializable
 data class TimezoneEntity(
     val offset: String,
     val description: String,
 )
-
+@Serializable
 data class LoginEntity(
     val uuid: String,
     val username: String,
@@ -59,22 +60,22 @@ data class LoginEntity(
     val sha1: String,
     val sha256: String,
 )
-
+@Serializable
 data class DobEntity(
     val date: String,
     val age: Int
 )
-
+@Serializable
 data class RegisteredEntity(
     val date: String,
     val age: Int
 )
-
+@Serializable
 data class IdEntity(
     val name: String,
-    val value: String
+    val value: String?
 )
-
+@Serializable
 data class PictureEntity(
     val large: String,
     val medium: String,
