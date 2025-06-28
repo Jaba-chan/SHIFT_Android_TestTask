@@ -1,7 +1,7 @@
 package ru.evgenykuzakov.domain.model
 
 data class UserMainInfo(
-    val id: Int,
+    val id: Long,
     val name: Name,
     val picture: PictureMedium,
     val location: LocationMainInfo,

@@ -5,12 +5,12 @@ import ru.evgenykuzakov.domain.model.UserMainInfo
 
 interface LocalUsersRepository {
 
-    fun getUsers(): List<UserMainInfo>
+    suspend fun getUsers(): List<UserMainInfo>
 
-    fun getUserDetailInfo(user: UserMainInfo): User
+    suspend fun getUserDetailInfo(user: UserMainInfo): User
 
-    fun clearAll(): Unit
+    suspend fun clearAll(): Unit
 
-    fun add(vararg users: List<User>)
+    suspend fun insertAll(users: List<User>)
 
 }
