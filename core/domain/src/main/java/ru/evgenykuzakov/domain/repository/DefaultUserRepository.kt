@@ -3,14 +3,12 @@ package ru.evgenykuzakov.domain.repository
 import ru.evgenykuzakov.domain.model.User
 import ru.evgenykuzakov.domain.model.UserMainInfo
 
-interface LocalUsersRepository {
+interface DefaultUserRepository {
 
     fun getUsers(): List<UserMainInfo>
 
     fun getUserDetailInfo(): User
 
-    fun clearAll(): Unit
-
-    fun add(vararg users: List<User>)
+    fun refreshUsers(): Unit
 
 }
