@@ -1,6 +1,6 @@
 package ru.evgenykuzakov.domain.model
 
-data class UserDetail(
+data class User(
     val gender: String,
     val name: Name,
     val location: Location,
