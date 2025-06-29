@@ -3,8 +3,10 @@ package ru.evgenykuzakov.shift_android_testtask.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 
 @Composable
 fun AppNavGraph(
@@ -20,7 +22,10 @@ fun AppNavGraph(
         composable(Screen.ShowUsersScreen.route) {
             showUsersScreenContent()
         }
-        composable(Screen.UserDetailInfoScreen.route) {
+        composable(
+            route = Screen.UserDetailInfoScreen.route,
+            arguments = listOf(navArgument("userId") { type = NavType.LongType})
+        ) {
             userDetailInfoScreenContent()
         }
     }
