@@ -22,8 +22,8 @@ class DefaultUserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserDetailInfo(user: UserMainInfo): User {
-        return localDataSource.getUserDetailInfo(user)
+    override suspend fun getUserDetailInfo(userId: Long): User {
+        return localDataSource.getUserDetailInfo(userId)
     }
 
     override suspend fun refreshUsers() {

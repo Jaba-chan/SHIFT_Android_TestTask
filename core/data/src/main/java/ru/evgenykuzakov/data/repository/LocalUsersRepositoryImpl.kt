@@ -17,8 +17,8 @@ class LocalUsersRepositoryImpl @Inject constructor(
         return dao.getAllUsers().map { it.toUserMainInfo() }
     }
 
-    override suspend fun getUserDetailInfo(user: UserMainInfo): User {
-        return dao.getUser(user.id).toDomain()
+    override suspend fun getUserDetailInfo(userId: Long): User {
+        return dao.getUser(userId).toDomain()
     }
 
     override suspend fun clearAll() {
