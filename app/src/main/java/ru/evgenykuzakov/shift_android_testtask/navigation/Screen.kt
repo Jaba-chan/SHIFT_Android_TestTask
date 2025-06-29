@@ -3,7 +3,7 @@ package ru.evgenykuzakov.shift_android_testtask.navigation
 sealed class Screen(val route: String) {
     object ShowUsersScreen: Screen(ROUTE_SHOW_USERS)
     object UserDetailInfoScreen: Screen(ARGS_ROUTE_USER_DETAIL_INFO){
-        fun createRoute(userId: Int): String {
+        fun createRoute(userId: Long): String {
             return "$BASE_ROUTE_USER_DETAIL_INFO?userId=${userId}"
         }
     }

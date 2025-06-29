@@ -7,16 +7,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import ru.evgenykuzakov.common.Resource
 import ru.evgenykuzakov.domain.model.User
-import ru.evgenykuzakov.domain.model.UserMainInfo
 import ru.evgenykuzakov.domain.repository.DefaultUserRepository
 import javax.inject.Inject
 
 class GetUserDetailInfoUseCase @Inject constructor(
     private val repository: DefaultUserRepository
 ) {
-    operator fun invoke(user: UserMainInfo): Flow<Resource<User>> = flow{
+    operator fun invoke(userId: Long): Flow<Resource<User>> = flow{
         emit(Resource.Loading())
-        emit(Resource.Success(repository.getUserDetailInfo(user)))
+        emit(Resource.Success(repository.getUserDetailInfo(userId)))
     }.catch { e ->
         println("GetUserDetailInfoUseCase" + e.message)
         emit(Resource.Error(message = e.message))
