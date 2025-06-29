@@ -9,9 +9,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.evgenykuzakov.shift_android_testtask.navigation.AppNavGraph
+import ru.evgenykuzakov.shift_android_testtask.navigation.NavigationState
 import ru.evgenykuzakov.shift_android_testtask.ui.theme.SHIFT_Android_TestTaskTheme
 import ru.evgenykuzakov.users.show_users.ShowUsersScreen
 
@@ -22,11 +26,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SHIFT_Android_TestTaskTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()
+
+                val navController = rememberNavController()
+                val navState = remember { NavigationState(navController) }
+
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    ShowUsersScreen(
-                        paddingValues = innerPadding
-                    )
+                   AppNavGraph(
+                       navHostController = navController,
+                       showUsersScreenContent = {
+                           ShowUsersScreen(
+                               paddingValues = innerPadding
+                           )
+                       },
+                       userDetailInfoScreenContent = {}
+                   )
                 }
             }
         }
