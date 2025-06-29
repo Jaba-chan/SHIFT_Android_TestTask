@@ -6,7 +6,7 @@ import ru.evgenykuzakov.network.model.*
 
 fun User.toUserMainInfo() = UserMainInfo(
     id = 0,
-    email = email,
+    phone = phone,
     name = name,
     location = location.toLocationMainInfo(),
     picture = picture.toPictureMedium()
@@ -19,7 +19,7 @@ fun Location.toLocationMainInfo() = LocationMainInfo(
 )
 
 fun Picture.toPictureMedium() = PictureMedium(
-    medium = medium
+    large = large
 )
 
 fun UserDto.toDomain() = User(
@@ -179,7 +179,7 @@ fun UserEntity.toUserMainInfo() = UserMainInfo(
     id = id,
     name = name.toDomain(),
     location = location.toLocationMainInfo(),
-    email = email,
+    phone = phone,
     picture = picture.toPictureMedium(),
 )
 
@@ -190,7 +190,7 @@ fun LocationEntity.toLocationMainInfo() = LocationMainInfo(
 )
 
 fun PictureEntity.toPictureMedium() = PictureMedium(
-    medium = medium
+    large = large
 )
 
 fun User.toEntity() = UserEntity(

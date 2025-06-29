@@ -5,7 +5,7 @@ data class UserMainInfo(
     val name: Name,
     val picture: PictureMedium,
     val location: LocationMainInfo,
-    val email: String,
+    val phone: String,
 )
 
 data class LocationMainInfo(
@@ -15,5 +15,5 @@ data class LocationMainInfo(
 )
 
 data class PictureMedium(
-    val medium: String,
+    val large: String,
 )
