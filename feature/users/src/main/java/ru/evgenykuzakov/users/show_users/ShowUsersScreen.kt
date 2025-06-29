@@ -37,7 +37,8 @@ import ru.evgenykuzakov.users.show_users.placeholder.StyledRow
 @Composable
 fun ShowUsersScreen(
     viewModel: ShowUsersViewModel = hiltViewModel(),
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    onUserClick: (Long) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -50,17 +51,17 @@ fun ShowUsersScreen(
                     .padding(paddingValues),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                items(items = users.data) {
+                items(items = users.data) { user ->
                     Card(
                         modifier = Modifier.padding(horizontal = 16.dp),
-                        onClick = {}
+                        onClick = { onUserClick(user.id) }
                     ) {
                         Row(
                             modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             AsyncImage(
-                                model = it.picture.large,
+                                model = user.picture.large,
                                 contentDescription = null,
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
@@ -73,14 +74,14 @@ fun ShowUsersScreen(
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 LabelSmallText(
-                                    text = "${it.name.first} ${it.name.last}",
+                                    text = "${user.name.first} ${user.name.last}",
                                 )
                                 StyledRow(
-                                    text = it.phone,
+                                    text = user.phone,
                                     iconResId = R.drawable.ic_call,
                                 )
                                 StyledRow(
-                                    text = "${it.location.city}, ${it.location.street.name}, ${it.location.street.number}",
+                                    text = "${user.location.city}, ${user.location.street.name}, ${user.location.street.number}",
                                     iconResId = R.drawable.ic_home,
                                 )
                             }
