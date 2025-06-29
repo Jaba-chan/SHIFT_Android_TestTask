@@ -9,7 +9,7 @@ interface LocalUsersRepository {
 
     suspend fun getUserDetailInfo(userId: Long): User
 
-    suspend fun clearAll(): Unit
+    suspend fun clearAll()
 
     suspend fun insertAll(users: List<User>)
 

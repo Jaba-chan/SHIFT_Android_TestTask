@@ -7,8 +7,8 @@ interface DefaultUserRepository {
 
     suspend fun getUsers(): List<UserMainInfo>
 
-    suspend fun getUserDetailInfo(userID: Long): User
+    suspend fun getUserDetailInfo(userId: Long): User
 
-    suspend fun refreshUsers(): Unit
+    suspend fun refreshUsers()
 
 }

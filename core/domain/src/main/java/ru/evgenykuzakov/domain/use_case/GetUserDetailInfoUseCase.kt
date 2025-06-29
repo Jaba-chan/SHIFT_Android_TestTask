@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import ru.evgenykuzakov.common.Resource
 import ru.evgenykuzakov.domain.model.User
-import ru.evgenykuzakov.domain.model.UserMainInfo
 import ru.evgenykuzakov.domain.repository.DefaultUserRepository
 import javax.inject.Inject
 
