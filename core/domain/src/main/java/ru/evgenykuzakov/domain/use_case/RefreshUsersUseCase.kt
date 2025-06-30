@@ -12,7 +12,7 @@ import javax.inject.Inject
 class RefreshUsersUseCase @Inject constructor(
     private val repository: DefaultUserRepository
 ) {
-    operator fun invoke(): Flow<Resource<Unit>> = flow{
+    suspend operator fun invoke(): Flow<Resource<Unit>> = flow{
         emit(Resource.Loading())
         emit(Resource.Success(repository.refreshUsers()))
     }.catch { e ->

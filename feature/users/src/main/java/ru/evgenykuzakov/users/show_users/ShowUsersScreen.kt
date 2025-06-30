@@ -23,8 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import ru.evgenykuzakov.common.Resource
+import ru.evgenykuzakov.designsystem.ui.LabelSmallText
+import ru.evgenykuzakov.designsystem.ui.theme.LoadingScreen
 import ru.evgenykuzakov.users.R
-import ru.evgenykuzakov.users.show_users.placeholder.LabelSmallText
 import ru.evgenykuzakov.users.show_users.placeholder.StyledRow
 
 @Composable
@@ -37,7 +38,9 @@ fun ShowUsersScreen(
 
     when (val users = uiState.users) {
         is Resource.Error -> {}
-        is Resource.Loading -> {}
+        is Resource.Loading -> {
+            LoadingScreen()
+        }
         is Resource.Success ->
             LazyColumn(
                 modifier = Modifier

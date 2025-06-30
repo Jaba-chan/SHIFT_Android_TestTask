@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone">phone</string>>
+    <string name="phone">Phone:</string>>
+    <string name="cell">Cell:</string>>
+    <string name="login">Login</string>>
+    <string name="uuid">UUID:</string>>
+    <string name="username">Username:</string>>
+    <string name="password">Password:</string>>
+    <string name="location">Location</string>>
+    <string name="city">City</string>>
+    <string name="state">State</string>>
+    <string name="postcode">Postcode:</string>>
+    <string name="show_on_map">Show on map</string>>
+    <string name="timezone">Timezone:</string>
+    <string name="email">Email:</string>
+    <string name="dob">Dob</string>
+    <string name="date">Date:</string>
+    <string name="person_age">Age:</string>
+    <string name="registered_age">Age:</string>
+    <string name="id">ID</string>
+    <string name="nationality">Nationality:</string>
+    <string name="registered">Registered</string>
+    <string name="address">Address:</string>
+    <string name="country">Country:</string>
+    <string name="contacts">Contacts</string>
 </resources>

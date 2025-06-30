@@ -43,7 +43,8 @@ class MainActivity : ComponentActivity() {
                        },
                        userDetailInfoScreenContent = {
                            UserDetailInfoScreen(
-                               paddingValues = innerPadding
+                               paddingValues = innerPadding,
+                               onBackClicked = { navState.navigateTo(Screen.ShowUsersScreen.route) }
                            )
                        }
                    )
