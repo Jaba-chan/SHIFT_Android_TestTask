@@ -1,5 +1,7 @@
 package ru.evgenykuzakov.users.user_detail_info
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -28,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import ru.evgenykuzakov.common.Resource
 import ru.evgenykuzakov.common.util.toStringDate
+import ru.evgenykuzakov.designsystem.ui.ActionText
 import ru.evgenykuzakov.designsystem.ui.BodyLargeText
 import ru.evgenykuzakov.designsystem.ui.HeadingCard
 import ru.evgenykuzakov.designsystem.ui.LabelSmallText
@@ -41,12 +45,13 @@ fun UserDetailInfoScreen(
     onBackClicked: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
-
+    val context = LocalContext.current
     when (val user = state.user) {
         is Resource.Error -> {}
         is Resource.Loading -> {
             LoadingScreen()
         }
+
         is Resource.Success -> {
             val userData = user.data
             Column(
@@ -58,8 +63,8 @@ fun UserDetailInfoScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 IconButton(
-                   onClick = onBackClicked
-                ){
+                    onClick = onBackClicked
+                ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_arrow_back),
                         contentDescription = null,
@@ -77,13 +82,41 @@ fun UserDetailInfoScreen(
                 LabelSmallText(text = "${userData.name.title} ${userData.name.first} ${userData.name.last}, ${userData.gender}")
                 BodyLargeText(
                     text = "${stringResource(R.string.nationality)} ${userData.nat}",
-                    textAlign = TextAlign.Center)
+                    textAlign = TextAlign.Center
+                )
                 HeadingCard(
                     headingText = stringResource(R.string.contacts)
                 ) {
-                    BodyLargeText(text = "${stringResource(R.string.email)} ${userData.email}")
-                    BodyLargeText(text = "${stringResource(R.string.phone)} ${userData.phone}")
-                    BodyLargeText(text = "${stringResource(R.string.cell)} ${userData.cell}")
+                    ActionText(
+                        heading = stringResource(R.string.email),
+                        underlined = userData.email,
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                data = Uri.parse("mailto:${userData.email}")
+                            }
+                            context.startActivity(intent)
+                        }
+                    )
+                    ActionText(
+                        heading = stringResource(R.string.phone),
+                        underlined = userData.phone,
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_DIAL).apply {
+                                data = Uri.parse("tel:${userData.phone}")
+                            }
+                            context.startActivity(intent)
+                        }
+                    )
+                    ActionText(
+                        heading = stringResource(R.string.cell),
+                        underlined = userData.cell,
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_DIAL).apply {
+                                data = Uri.parse("tel:${userData.cell}")
+                            }
+                            context.startActivity(intent)
+                        }
+                    )
                 }
                 Row {
                     HeadingCard(
@@ -103,21 +136,32 @@ fun UserDetailInfoScreen(
                     }
                 }
                 HeadingCard(
-                        headingText = stringResource(R.string.location)
-                        ) {
+                    headingText = stringResource(R.string.location)
+                ) {
                     BodyLargeText(text = "${stringResource(R.string.country)} ${userData.location.country}, ${userData.location.state}")
                     BodyLargeText(text = "${stringResource(R.string.address)} ${userData.location.street.name}, ${userData.location.street.number}")
                     BodyLargeText(text = "${stringResource(R.string.postcode)} ${userData.location.postcode}")
                     BodyLargeText(text = "${stringResource(R.string.timezone)} ${userData.location.timezone.description}, ${userData.location.timezone.offset}")
-                }
-                HeadingCard(
-                    headingText = stringResource(R.string.login)
-                ) {
-                    BodyLargeText(text = "${stringResource(R.string.username)} ${userData.login.username}")
-                    BodyLargeText(text = "${stringResource(R.string.password)} ${userData.login.password}")
-                    BodyLargeText(text = "${stringResource(R.string.uuid)} ${userData.login.uuid}")
-                }
+                    ActionText(
+                        heading = stringResource(R.string.coordinates),
+                        underlined = "${userData.location.coordinates.latitude}, ${ userData.location.coordinates.longitude }",
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                data = Uri.parse("geo:${userData.location.coordinates.latitude},${userData.location.coordinates.longitude}" +
+                                        "?q=${userData.location.coordinates.latitude},${userData.location.coordinates.longitude}")
+                            }
+                            context.startActivity(intent)
+                        }
+                    )
+            }
+            HeadingCard(
+                headingText = stringResource(R.string.login)
+            ) {
+                BodyLargeText(text = "${stringResource(R.string.username)} ${userData.login.username}")
+                BodyLargeText(text = "${stringResource(R.string.password)} ${userData.login.password}")
+                BodyLargeText(text = "${stringResource(R.string.uuid)} ${userData.login.uuid}")
             }
         }
     }
+}
 }
