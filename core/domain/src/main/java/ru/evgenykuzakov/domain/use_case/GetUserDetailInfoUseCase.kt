@@ -13,7 +13,7 @@ import javax.inject.Inject
 class GetUserDetailInfoUseCase @Inject constructor(
     private val repository: DefaultUserRepository
 ) {
-    operator fun invoke(userId: Long): Flow<Resource<User>> = flow{
+    suspend operator fun invoke(userId: Long): Flow<Resource<User>> = flow{
         emit(Resource.Loading())
         emit(Resource.Success(repository.getUserDetailInfo(userId)))
     }.catch { e ->

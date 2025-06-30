@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import ru.evgenykuzakov.designsystem.ui.BodyLargeText
 
 @Composable
 internal fun StyledRow(
@@ -30,35 +31,6 @@ internal fun StyledRow(
     }
 }
 
-@Composable
-internal fun BodyLargeText(
-    text: String,
-    textAlign: TextAlign = TextAlign.Start,
-    color: Color = MaterialTheme.colorScheme.onSurface
-){
-    Text(
-        modifier = Modifier.fillMaxWidth(),
-        text = text,
-        style = MaterialTheme.typography.bodyLarge,
-        color = color,
-        textAlign = textAlign
-    )
-}
-
-@Composable
-internal fun LabelSmallText(
-    text: String,
-    textAlign: TextAlign = TextAlign.Center,
-    color: Color = MaterialTheme.colorScheme.onSurface
-){
-    Text(
-        modifier = Modifier.fillMaxWidth(),
-        text = text,
-        style = MaterialTheme.typography.titleLarge,
-        color = color,
-        textAlign = textAlign
-    )
-}
 
 @Composable
 internal fun StyledIcon(
