@@ -12,6 +12,7 @@
     <string name="postcode">Postcode:</string>>
     <string name="show_on_map">Show on map</string>>
     <string name="timezone">Timezone:</string>
+    <string name="coordinates">Coordinates:</string>
     <string name="email">Email:</string>
     <string name="dob">Dob</string>
     <string name="date">Date:</string>
