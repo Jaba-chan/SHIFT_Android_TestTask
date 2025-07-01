@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -71,7 +70,7 @@ fun UserDetailInfoScreen(
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
-                BodyLargeText(text = "${stringResource(R.string.id)} ${userData.id.name}: ${userData.id.value}")
+                BodyLargeText(text = "${stringResource(R.string.id)} ${userData.idCard.name}: ${userData.idCard.value}")
                 AsyncImage(
                     model = userData.picture.large,
                     contentDescription = null,

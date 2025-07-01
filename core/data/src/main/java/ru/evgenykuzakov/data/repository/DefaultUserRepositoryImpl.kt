@@ -18,7 +18,7 @@ class DefaultUserRepositoryImpl @Inject constructor(
         return localData.ifEmpty {
             val remoteData = remoteDataSource.getUsers()
             localDataSource.insertAll(remoteData)
-            return remoteData.map { it.toUserMainInfo() }
+            return remoteData.mapIndexed {pos, user -> user.toUserMainInfo(pos.toLong()) }
         }
     }
 

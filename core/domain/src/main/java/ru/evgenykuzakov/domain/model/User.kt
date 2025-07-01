@@ -1,6 +1,7 @@
 package ru.evgenykuzakov.domain.model
 
 data class User(
+    val id: Long,
     val gender: String,
     val name: Name,
     val location: Location,
@@ -10,7 +11,7 @@ data class User(
     val registered: Registered,
     val phone: String,
     val cell: String,
-    val id: Id,
+    val idCard: Id,
     val picture: Picture,
     val nat: String
 )

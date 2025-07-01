@@ -4,8 +4,8 @@ import ru.evgenykuzakov.database.model.*
 import ru.evgenykuzakov.domain.model.*
 import ru.evgenykuzakov.network.model.*
 
-fun User.toUserMainInfo() = UserMainInfo(
-    id = 0,
+fun User.toUserMainInfo(userId: Long) = UserMainInfo(
+    id = userId,
     phone = phone,
     name = name,
     location = location.toLocationMainInfo(),
@@ -22,7 +22,8 @@ fun Picture.toPictureMedium() = PictureMedium(
     large = large
 )
 
-fun UserDto.toDomain() = User(
+fun UserDto.toDomain(userId: Long) = User(
+    id = userId,
     gender = gender,
     name = name.toDomain(),
     location = location.toDomain(),
@@ -32,7 +33,7 @@ fun UserDto.toDomain() = User(
     registered = registered.toDomain(),
     phone = phone,
     cell = cell,
-    id = id.toDomain(),
+    idCard = id.toDomain(),
     picture = picture.toDomain(),
     nat = nat
 )
@@ -100,6 +101,7 @@ fun PictureDto.toDomain() = Picture(
 )
 
 fun UserEntity.toDomain() = User(
+    id = id,
     gender = gender,
     name = name.toDomain(),
     location = location.toDomain(),
@@ -109,7 +111,7 @@ fun UserEntity.toDomain() = User(
     registered = registered.toDomain(),
     phone = phone,
     cell = cell,
-    id = idCard.toDomain(),
+    idCard = idCard.toDomain(),
     picture = picture.toDomain(),
     nat = nat
 )
@@ -194,6 +196,7 @@ fun PictureEntity.toPictureMedium() = PictureMedium(
 )
 
 fun User.toEntity() = UserEntity(
+    id = id,
     gender = gender,
     name = name.toEntity(),
     location = location.toEntity(),
@@ -203,7 +206,7 @@ fun User.toEntity() = UserEntity(
     registered = registered.toEntity(),
     phone = phone,
     cell = cell,
-    idCard = id.toEntity(),
+    idCard = idCard.toEntity(),
     picture = picture.toEntity(),
     nat = nat
 )

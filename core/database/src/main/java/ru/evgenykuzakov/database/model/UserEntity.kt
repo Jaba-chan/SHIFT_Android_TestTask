@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Entity(tableName = "users")
 data class UserEntity (
-    @PrimaryKey(autoGenerate = true) val id: Long = 0, val gender: String,
+    @PrimaryKey(autoGenerate = false) val id: Long = 0,
+    val gender: String,
     val name: NameEntity,
     val location: LocationEntity,
     val email: String,
