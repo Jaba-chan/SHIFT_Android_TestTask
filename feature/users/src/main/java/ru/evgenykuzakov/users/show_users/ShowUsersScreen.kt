@@ -1,5 +1,11 @@
 package ru.evgenykuzakov.users.show_users
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,12 +26,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat.getString
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import ru.evgenykuzakov.common.Resource
+import ru.evgenykuzakov.designsystem.ui.ErrorScreen
 import ru.evgenykuzakov.designsystem.ui.LabelSmallText
-import ru.evgenykuzakov.designsystem.ui.theme.LoadingScreen
+import ru.evgenykuzakov.designsystem.ui.LoadingScreen
 import ru.evgenykuzakov.users.R
 import ru.evgenykuzakov.users.show_users.placeholder.StyledRow
 
@@ -36,17 +47,45 @@ fun ShowUsersScreen(
     onUserClick: (Long) -> Unit,
     onRefreshClick: (() -> Unit) -> Unit
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
+
+    val notificationPermissionLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
+            onResult = { granted ->
+                if (granted)
+                    sendNotification(context,  (uiState.users as? Resource.Error)?.message ?: "")
+            }
+        )
+
     LaunchedEffect(Unit) {
-        onRefreshClick { viewModel.refreshUsers()}
+        onRefreshClick { viewModel.refreshUsers() }
     }
 
-    val uiState by viewModel.uiState.collectAsState()
+    LaunchedEffect(uiState.users) {
+        createNotificationChannel(context)
+        val users = uiState.users
+        if (users is Resource.Error) {
+            val msg = users.message ?: ""
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                sendNotification(context, msg)
+            }
+        }
+    }
 
     when (val users = uiState.users) {
-        is Resource.Error -> {}
+        is Resource.Error -> {
+            val msg = users.message ?: ""
+            ErrorScreen(errorText = msg)
+        }
+
         is Resource.Loading -> {
             LoadingScreen()
         }
+
         is Resource.Success ->
             LazyColumn(
                 modifier = Modifier
@@ -94,3 +133,33 @@ fun ShowUsersScreen(
     }
 
 }
+
+const val CHANNEL_MSG_ID = "error_msg"
+const val NOTIFICATION_ID = 1
+
+private fun createNotificationChannel(
+    context: Context,
+) {
+    val channel = NotificationChannel(
+        CHANNEL_MSG_ID,
+        getString(context, R.string.errors_notification_channel_name),
+        NotificationManager.IMPORTANCE_DEFAULT
+    )
+    channel.description = getString(context, R.string.errors_notification_channel_desc)
+    with(NotificationManagerCompat.from(context)){
+        createNotificationChannel(channel)
+    }
+}
+
+private fun sendNotification(context: Context, msg: String) {
+    val builder = NotificationCompat.Builder(context, CHANNEL_MSG_ID)
+        .setSmallIcon(R.drawable.ic_warning)
+        .setContentTitle(getString(context, R.string.error))
+        .setContentText(msg)
+    val notification = builder.build()
+    with(NotificationManagerCompat.from(context)){
+        notify(NOTIFICATION_ID, notification)
+    }
+}
+
+
