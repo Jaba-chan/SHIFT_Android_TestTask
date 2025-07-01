@@ -4,8 +4,8 @@ import ru.evgenykuzakov.database.model.*
 import ru.evgenykuzakov.domain.model.*
 import ru.evgenykuzakov.network.model.*
 
-fun User.toUserMainInfo(userId: Long) = UserMainInfo(
-    id = userId,
+fun User.toUserMainInfo() = UserMainInfo(
+    id = id,
     phone = phone,
     name = name,
     location = location.toLocationMainInfo(),

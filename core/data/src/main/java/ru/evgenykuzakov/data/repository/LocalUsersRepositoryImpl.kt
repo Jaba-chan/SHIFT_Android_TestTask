@@ -13,8 +13,12 @@ class LocalUsersRepositoryImpl @Inject constructor(
     private val dao: UsersDao
 ) : LocalUsersRepository {
 
+    private var cachedUsers = emptyList<UserMainInfo>()
+
     override suspend fun getUsers(): List<UserMainInfo> {
-        return dao.getAllUsers().map { it.toUserMainInfo() }
+        return cachedUsers.ifEmpty {
+            dao.getAllUsers().map { it.toUserMainInfo() }
+        }
     }
 
     override suspend fun getUserDetailInfo(userId: Long): User {
