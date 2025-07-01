@@ -34,7 +34,7 @@ import ru.evgenykuzakov.designsystem.ui.ActionText
 import ru.evgenykuzakov.designsystem.ui.BodyLargeText
 import ru.evgenykuzakov.designsystem.ui.HeadingCard
 import ru.evgenykuzakov.designsystem.ui.LabelSmallText
-import ru.evgenykuzakov.designsystem.ui.theme.LoadingScreen
+import ru.evgenykuzakov.designsystem.ui.LoadingScreen
 import ru.evgenykuzakov.users.R
 
 @Composable
