@@ -10,6 +10,6 @@ class RemoteUserRepositoryImpl @Inject constructor(
     private val api: RandomUserApi
 ) : RemoteUserRepository {
     override suspend fun getUsers(): List<User> {
-        return api.getUsers().results.map { it.toDomain() }
+        return api.getUsers().results.mapIndexed {pos, user -> user.toDomain(pos.toLong()) }
     }
 }

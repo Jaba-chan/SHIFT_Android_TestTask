@@ -18,6 +18,7 @@ class GetUserDetailInfoUseCase @Inject constructor(
         emit(Resource.Success(repository.getUserDetailInfo(userId)))
     }.catch { e ->
         println("GetUserDetailInfoUseCase" + e.message)
+        println(userId.toString())
         emit(Resource.Error(message = e.message))
     }.flowOn(Dispatchers.IO)
 }
