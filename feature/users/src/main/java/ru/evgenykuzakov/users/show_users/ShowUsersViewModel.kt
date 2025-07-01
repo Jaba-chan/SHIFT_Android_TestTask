@@ -9,17 +9,23 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.evgenykuzakov.domain.use_case.GetUsersUseCase
+import ru.evgenykuzakov.domain.use_case.RefreshUsersUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class ShowUsersViewModel @Inject constructor(
-    private val getUsersUseCase: GetUsersUseCase
+    private val getUsersUseCase: GetUsersUseCase,
+    private val refreshUsersUseCase: RefreshUsersUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ShowScreenUIState())
     val uiState: StateFlow<ShowScreenUIState> = _uiState
 
     init {
+        getUsers()
+    }
+
+    private fun getUsers(){
         viewModelScope.launch {
             getUsersUseCase()
                 .collectLatest { result ->
@@ -30,5 +36,13 @@ class ShowUsersViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun refreshUsers(){
+        viewModelScope.launch {
+            refreshUsersUseCase().collectLatest {}
+            getUsers()
+        }
+
     }
 }

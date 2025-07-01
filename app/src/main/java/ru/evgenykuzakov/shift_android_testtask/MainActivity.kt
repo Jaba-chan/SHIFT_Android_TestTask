@@ -5,11 +5,22 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.evgenykuzakov.designsystem.ui.LabelSmallText
 import ru.evgenykuzakov.shift_android_testtask.navigation.AppNavGraph
 import ru.evgenykuzakov.shift_android_testtask.navigation.NavigationState
 import ru.evgenykuzakov.shift_android_testtask.navigation.Screen
@@ -27,27 +38,47 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
                 val navState = remember { NavigationState(navController) }
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+                val currentRoute = navBackStackEntry?.destination?.route
+                var onRefreshClick by remember { mutableStateOf<() -> Unit>({}) }
 
                 Scaffold(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
+                    floatingActionButton = {
+                        if (currentRoute == Screen.ShowUsersScreen.route)
+                            FloatingActionButton(
+                                onClick = onRefreshClick,
+                                modifier = Modifier.wrapContentWidth()
+                            ) {
+                                LabelSmallText(
+                                    modifier = Modifier
+                                        .wrapContentWidth()
+                                        .padding(horizontal = 28.dp),
+                                    text = stringResource(R.string.refresh)
+                                )
+                            }
+                    },
+                    floatingActionButtonPosition = FabPosition.Center,
                 ) { innerPadding ->
-                   AppNavGraph(
-                       navHostController = navController,
-                       showUsersScreenContent = {
-                           ShowUsersScreen(
-                               paddingValues = innerPadding,
-                               onUserClick = {
-                                   navState.navigateTo(Screen.UserDetailInfoScreen.createRoute(it))
-                               }
-                           )
-                       },
-                       userDetailInfoScreenContent = {
-                           UserDetailInfoScreen(
-                               paddingValues = innerPadding,
-                               onBackClicked = { navState.navigateTo(Screen.ShowUsersScreen.route) }
-                           )
-                       }
-                   )
+                    AppNavGraph(
+                        navHostController = navController,
+                        showUsersScreenContent = {
+                            ShowUsersScreen(
+                                paddingValues = innerPadding,
+                                onUserClick = {
+                                    navState.navigateTo(Screen.UserDetailInfoScreen.createRoute(it))
+                                },
+                                onRefreshClick = { onRefreshClick = it }
+                            )
+                        },
+                        userDetailInfoScreenContent = {
+                            UserDetailInfoScreen(
+                                paddingValues = innerPadding,
+                                onBackClicked = { navState.navigateTo(Screen.ShowUsersScreen.route) }
+                            )
+                        }
+                    )
                 }
             }
         }

@@ -26,6 +26,7 @@ class LocalUsersRepositoryImpl @Inject constructor(
     }
 
     override suspend fun clearAll() {
+        cachedUsers = emptyList()
         dao.clearAll()
     }
 
