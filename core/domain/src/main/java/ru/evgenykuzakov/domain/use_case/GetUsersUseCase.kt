@@ -13,7 +13,7 @@ import ru.evgenykuzakov.domain.repository.DefaultUserRepository
 class GetUsersUseCase @Inject constructor(
     private val repository: DefaultUserRepository
 ) {
-    suspend operator fun invoke(): Flow<Resource<List<UserMainInfo>>> =
+    operator fun invoke(): Flow<Resource<List<UserMainInfo>>> =
         flow {
             emit(Resource.Loading())
             emit(Resource.Success(repository.getUsers()))

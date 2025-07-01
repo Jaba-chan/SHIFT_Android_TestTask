@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -32,8 +33,13 @@ import ru.evgenykuzakov.users.show_users.placeholder.StyledRow
 fun ShowUsersScreen(
     viewModel: ShowUsersViewModel = hiltViewModel(),
     paddingValues: PaddingValues,
-    onUserClick: (Long) -> Unit
+    onUserClick: (Long) -> Unit,
+    onRefreshClick: (() -> Unit) -> Unit
 ) {
+    LaunchedEffect(Unit) {
+        onRefreshClick { viewModel.refreshUsers()}
+    }
+
     val uiState by viewModel.uiState.collectAsState()
 
     when (val users = uiState.users) {

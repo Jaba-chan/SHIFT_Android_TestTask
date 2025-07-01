@@ -19,12 +19,13 @@ import androidx.compose.ui.text.withStyle
 
 @Composable
 fun BodyLargeText(
+    modifier: Modifier = Modifier.fillMaxWidth(),
     text: String,
     textAlign: TextAlign = TextAlign.Start,
     color: Color = MaterialTheme.colorScheme.onSurface,
 ){
     Text(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         text = text,
         style = MaterialTheme.typography.bodyLarge,
         color = color,
@@ -66,12 +67,13 @@ fun ActionText(
 
 @Composable
 fun LabelSmallText(
+    modifier: Modifier = Modifier.fillMaxWidth(),
     text: String,
     textAlign: TextAlign = TextAlign.Center,
     color: Color = MaterialTheme.colorScheme.onSurface
 ){
     Text(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         text = text,
         style = MaterialTheme.typography.titleLarge,
         color = color,
