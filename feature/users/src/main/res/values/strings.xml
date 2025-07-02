@@ -28,4 +28,8 @@
     <string name="errors_notification_channel_name">Errors</string>
     <string name="errors_notification_channel_desc">This channel displays errors in the application.</string>
     <string name="error">Error</string>
+    <string name="error_no_internet_connection">No internet connection.</string>
+    <string name="error_no_users">No users.</string>
+    <string name="error_default">Unknown error.</string>
+    <string name="something_has_gone_wrong">Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you.</string>
 </resources>
