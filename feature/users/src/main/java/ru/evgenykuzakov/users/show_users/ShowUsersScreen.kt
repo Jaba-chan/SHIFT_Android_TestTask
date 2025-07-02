@@ -1,5 +1,6 @@
 package ru.evgenykuzakov.users.show_users
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -156,6 +157,7 @@ private fun createNotificationChannel(
     }
 }
 
+@SuppressLint("MissingPermission")
 private fun sendNotification(context: Context, msg: String) {
     val builder = NotificationCompat.Builder(context, CHANNEL_MSG_ID)
         .setSmallIcon(R.drawable.ic_warning)
